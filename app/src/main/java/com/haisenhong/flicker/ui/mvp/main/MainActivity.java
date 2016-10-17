@@ -14,6 +14,7 @@ import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.haisenhong.flicker.R;
 import com.haisenhong.flicker.common.Constants;
 import com.haisenhong.flicker.data.models.responses.GetMoviesResponse;
@@ -43,6 +44,8 @@ public class MainActivity extends AppCompatActivity implements DetailsDialog.Dat
     private ProgressDialog dialog;
     private MovieListAdapter adapter;
     private GetMoviesResponse response;
+
+    private DetailsDialog detailsDialog;
 
     @BindView(R.id.list_view)
     ListView listView;
@@ -137,12 +140,13 @@ public class MainActivity extends AppCompatActivity implements DetailsDialog.Dat
     public void itemClick(int position) {
         Result data = (Result) adapter.getItem(position);
         if(data.getVote_average() <= 5) {
-            DetailsDialog dialog = new DetailsDialog();
-            dialog.setData(data);
-            dialog.show(getSupportFragmentManager(), Constants.DETAILS_DIALOG);
+            detailsDialog = new DetailsDialog();
+            detailsDialog.setData(data);
+//            dialog.show(getSupportFragmentManager(), Constants.DETAILS_DIALOG);
+            presenter.retrieveTrailers(data.getId(), Constants.TYPE_NORMAL);
         }
         else {
-            presenter.retrieveTrailers(data.getId());
+            presenter.retrieveTrailers(data.getId(), Constants.TYPE_POPULAR);
         }
     }
 
@@ -162,8 +166,12 @@ public class MainActivity extends AppCompatActivity implements DetailsDialog.Dat
         startActivity(intent);
     }
 
+    public void showDetails(YoutubeResponse response) {
+        detailsDialog.show(getSupportFragmentManager(), Constants.DETAILS_DIALOG);
+    }
+
     @Override
     public void update(int id) {
-        presenter.retrieveTrailers(id);
+//        presenter.retrieveTrailers(id);
     }
 }

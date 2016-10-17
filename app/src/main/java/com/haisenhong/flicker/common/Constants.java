@@ -9,6 +9,7 @@ public class Constants {
     public static String RESPONSE_HEADERS = "response_headers";
     public static String DETAILS_DIALOG = "details";
     public static String VIDEO_SOURCE = "video_source";
+    public static String TRAILER_INFO = "trailer_info";
 
     public static int REQUEST_PERMISSIONS = 999;
     public static int TYPE_NORMAL = 0;

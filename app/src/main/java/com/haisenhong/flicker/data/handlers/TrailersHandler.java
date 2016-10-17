@@ -4,9 +4,11 @@ import android.util.Log;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.haisenhong.flicker.common.Constants;
 import com.haisenhong.flicker.data.models.responses.YoutubeResponse;
 import com.haisenhong.flicker.data.network.GsonRequest;
 import com.haisenhong.flicker.ui.mvp.main.MainPresenter;
+import com.haisenhong.flicker.utils.ObjectHolder;
 import com.haisenhong.flicker.utils.VolleyUtils;
 
 /**
@@ -18,6 +20,7 @@ public class TrailersHandler {
     private final String TAG = TrailersHandler.class.getSimpleName();
 
     private MainPresenter presenter;
+    private int type;
 
     private static class TrailersHandlerInner {
         private static TrailersHandler INSTANCE = new TrailersHandler();
@@ -27,9 +30,10 @@ public class TrailersHandler {
         return TrailersHandlerInner.INSTANCE;
     }
 
-    public void getTrailers(int method, String url, Class<YoutubeResponse> responseType, MainPresenter presenter) {
+    public void getTrailers(int method, String url, Class<YoutubeResponse> responseType, MainPresenter presenter, int type) {
 
         this.presenter = presenter;
+        this.type = type;
 
         GsonRequest<YoutubeResponse> gsonRequest = new GsonRequest<>(method, url, null, responseType,
                 getSuccessListener(), getErrorListener());
@@ -42,7 +46,13 @@ public class TrailersHandler {
             @Override
             public void onResponse(YoutubeResponse response) {
                 Log.d(TAG, response.toString());
-                presenter.launchYoutubePlayer(response);
+                ObjectHolder.getInstance().put(Constants.TRAILER_INFO, response);
+                if(type == Constants.TYPE_POPULAR) {
+                    presenter.launchYoutubePlayer(response);
+                }
+                else {
+                    presenter.showDetails(response);
+                }
             }
         };
     }

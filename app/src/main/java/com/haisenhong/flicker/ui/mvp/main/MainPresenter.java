@@ -32,10 +32,10 @@ public class MainPresenter {
         handler.retrieveData(Request.Method.GET, url, pageNum, GetMoviesResponse.class, this);
     }
 
-    public void retrieveTrailers(int id) {
+    public void retrieveTrailers(int id, int type) {
         String url = String.format(mainActivity.getResources().getString(R.string.retrieveTrailers)
                 + "%d/trailers?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed", id);
-        trailersHandler.getTrailers(Request.Method.GET, url, YoutubeResponse.class, this);
+        trailersHandler.getTrailers(Request.Method.GET, url, YoutubeResponse.class, this, type);
     }
 
     public void launchYoutubePlayer(YoutubeResponse response) {
@@ -62,6 +62,10 @@ public class MainPresenter {
 
     public void showErrorMessage() {
         mainActivity.showErrorMessage();
+    }
+
+    public void showDetails(YoutubeResponse response) {
+        mainActivity.showDetails(response);
     }
 
 }

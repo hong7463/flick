@@ -19,22 +19,40 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+                <!--<FrameLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content">-->
+
+                    <!--<ImageView-->
+                        <!--android:id="@+id/detail_poster"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="@dimen/poster_land_height"-->
+                        <!--android:src="@color/cardview_dark_background" />-->
+
+                    <!--<ImageView-->
+                        <!--android:id="@+id/detail_play"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:src="@drawable/play_circle_outline"/>-->
+                <!--</FrameLayout>-->
+
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <ImageView
-                        android:id="@+id/detail_poster"
+                    <fragment
+                        android:id="@+id/detail_player"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/poster_land_height"
-                        android:src="@color/cardview_dark_background" />
+                        android:layout_height="wrap_content"
+                        android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"/>
 
                     <ImageView
-                        android:id="@+id/detail_play"
+                        android:id="@+id/details_close"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/play_circle_outline"/>
+                        android:layout_gravity="right"
+                        android:src="@drawable/close_circle_outline" />
                 </FrameLayout>
 
                 <TextView
@@ -87,12 +105,4 @@
 
         </android.support.v7.widget.CardView>
     </ScrollView>
-
-    <ImageView
-        android:id="@+id/details_close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:src="@drawable/close_circle_outline" />
-
 </FrameLayout>
